@@ -16,7 +16,7 @@ class Task
     private $tags;
     private $category;
 
-public function __construct(int $id,string $title,DateTime $deadline,bool $done,User $manager, array $tags=[],Category $category)
+public function __construct(int $id,string $title,DateTime $limitDate,bool $done=false,User $manager, array $tags=[],Category $category)
 {
 $this->id=$id;
 $this->title = $title;
@@ -58,9 +58,9 @@ $this->category = $category;
     /**
      * Get the value of deadline
      */ 
-    public function getDeadline():DateTime
+    public function getLimitDate():DateTime
     {
-        return $this->deadline;
+        return $this->limitDate;
     }
 
     /**
@@ -68,9 +68,9 @@ $this->category = $category;
      *
      * @return  self
      */ 
-    public function setDeadline(DateTime $deadline):self
+    public function setLimitDate(DateTime $limitDate):self
     {
-        $this->deadline = $deadline;
+        $this->limitDate = $limitDate;
 
         return $this;
     }
