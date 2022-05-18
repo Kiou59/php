@@ -1,11 +1,14 @@
-<?php
+<?php declare(strict_types = 1);
 // Article
 // -categorie
 // - id
 //- auteur
 //- summary
 
-namespace Blog;
+namespace App\Blog;
+
+use App\Blog\Category;
+
 class Article
 {
 private $id;
@@ -13,18 +16,18 @@ private $title;
 private $body;
 private $category;
 
-    public function __construct($id, $title, $body, $category){
+    public function __construct(int $id, string $title, string $body, Category $category){
         $this->id = $id;
         $this->title = $title;
         $this->body = $body;
-        $this->category = $category;
+        $this->setCategory($category);
     }
 
 
 /**
  * Get the value of id
  */ 
-public function getId()
+public function getId():int
 {
 return $this->id;
 }
@@ -32,7 +35,7 @@ return $this->id;
 /**
  * Get the value of title
  */ 
-public function getTitle()
+public function getTitle():string
 {
 return $this->title;
 }
@@ -42,7 +45,7 @@ return $this->title;
  *
  * @return  self
  */ 
-public function setTitle($title)
+public function setTitle(string $title):self
 {
 $this->title = $title;
 
@@ -52,7 +55,7 @@ return $this;
 /**
  * Get the value of body
  */ 
-public function getBody()
+public function getBody():string
 {
 return $this->body;
 }
@@ -62,7 +65,7 @@ return $this->body;
  *
  * @return  self
  */ 
-public function setBody($body)
+public function setBody(string $body):self
 {
 $this->body = $body;
 
@@ -72,7 +75,7 @@ return $this;
 /**
  * Get the value of category
  */ 
-public function getCategory()
+public function getCategory():Category
 {
 return $this->category;
 }
@@ -82,9 +85,11 @@ return $this->category;
  *
  * @return  self
  */ 
-public function setCategory($category)
+public function setCategory(Category $category):self
 {
 $this->category = $category;
+
+$category->addArticle($this);
 
 return $this;
 }

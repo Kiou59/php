@@ -1,0 +1,117 @@
+<?php declare(strict_types = 1);
+
+// Category
+    // - name
+    // - description
+    // - id
+    // - image
+    // - crated_at
+    // - etited_by
+namespace App\Blog;
+
+use App\Blog\Article;
+class Category
+{
+    private $id;
+    private $name;
+    private $description;
+    private $articles;
+
+    public function __construct(int $id, string $name, ?string $description, array $articles= [])
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+
+        // if(!$articles){
+        //     $this->articles = $articles;
+        // }else{
+        //     $this->articles = [];
+        // }
+        // $this->articles= $articles ? $articles : [];
+        $this->articles = $articles;
+    }
+        /**
+     * Get the value of id
+     */ 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+            /**
+     * Get the value of name
+     */ 
+    public function getName():string
+    {
+        return $this -> name;
+    }
+        /**
+     * Set the value of name
+     *
+     * @return  self
+     */ 
+    public function setName(string $name):self
+    {
+        $this->name = $name;
+        return $this;
+
+    }
+
+
+
+
+    /**
+     * Get the value of description
+     */ 
+    public function getDescription():?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */ 
+    public function setDescription(?string $description):self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of articles
+     */ 
+    public function getArticles():array
+    {
+        return $this->articles;
+    }
+
+    /**
+     * Set the value of articles
+     *
+     * @return  self
+     */ 
+    public function setArticles(array $articles):self
+    {
+        $this->articles = $articles;
+
+        return $this;
+    }
+    public function addArticle(Article $article):self
+    {
+        if(!in_array($article, this->$articles)){
+        $this->$articles[]= $article;}
+        return $this;
+    }
+
+    public function removeArticle(Article $article):self
+    {
+        $index = array_search($article, $this->articles);
+        if($index !== false){
+            array_splice($this->articles, $index, 1);
+    }
+    return $this;
+    }
+}
