@@ -6,9 +6,9 @@ liste des classes a creer:
 -Task
 -Tags
 -Category*/
-use App\todo\Category;
-use App\todo\Tags;
-use App\todo\Task;
-use App\todo\User;
+use App\Todo\Category;
+use App\Todo\Tag;
+use App\Todo\Task;
+use App\Todo\User;
 
 require __DIR__.'\vendor\autoload.php';

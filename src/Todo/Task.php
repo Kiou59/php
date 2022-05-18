@@ -1,6 +1,9 @@
 <?php declare(strict_types = 1);
 
 namespace App\todo;
+use App\Todo\Tag;
+use App\Todo\User;
+use App\Todo\Category;
 use DateTime;
 
 class Task
@@ -9,23 +12,25 @@ class Task
     private $title;
     private $limitDate;
     private $done;
-    //private $responsible;
+    private $manager;
     private $tags;
+    private $category;
 
-public function __construct(int $id,string $title,DateTime $deadline,bool $done, ?array $tags=[])
+public function __construct(int $id,string $title,DateTime $deadline,bool $done,User $manager, array $tags=[],Category $category)
 {
 $this->id=$id;
 $this->title = $title;
 $this->deadline = $deadline;
 $this->done=$done;
-
+$this ->manager=$manager;
 $this->tags=$tags;
+$this->category = $category;
 }
 
     /**
      * Get the value of id
      */ 
-    public function getId()
+    public function getId():int
     {
         return $this->id;
     }
@@ -33,7 +38,7 @@ $this->tags=$tags;
     /**
      * Get the value of title
      */ 
-    public function getTitle()
+    public function getTitle():string
     {
         return $this->title;
     }
@@ -43,7 +48,7 @@ $this->tags=$tags;
      *
      * @return  self
      */ 
-    public function setTitle($title)
+    public function setTitle(string $title):self
     {
         $this->title = $title;
 
@@ -73,7 +78,7 @@ $this->tags=$tags;
     /**
      * Get the value of done
      */ 
-    public function isDone()
+    public function isDone():bool
     {
         return $this->done;
     }
@@ -83,7 +88,7 @@ $this->tags=$tags;
      *
      * @return  self
      */ 
-    public function setDone($done)
+    public function setDone(bool $done):self
     {
         $this->done = $done;
 
@@ -93,7 +98,7 @@ $this->tags=$tags;
     /**
      * Get the value of manager
      */ 
-    public function getManager()
+    public function getManager():User
     {
         return $this->manager;
     }
@@ -103,7 +108,7 @@ $this->tags=$tags;
      *
      * @return  self
      */ 
-    public function setManager($manager)
+    public function setManager(User $manager):self
     {
         $this->manager = $manager;
 
@@ -113,7 +118,7 @@ $this->tags=$tags;
 /**
  * Get the value of tags
  */ 
-public function getTags()
+public function getTags():array
 {
 return $this->tags;
 }
@@ -123,13 +128,13 @@ return $this->tags;
  *
  * @return  self
  */ 
-public function setTags($tags)
+public function setTags(array $tags):self
 {
 $this->tags = $tags;
 
 return $this;
 }
-public function addTags($tag)
+public function addTags(Tag $tag):self
 {
     if (!in_array($tag, $this->tags)){
     $this->tags[]= $tag;
@@ -137,7 +142,7 @@ public function addTags($tag)
 
     return $this;
 }
-public function removeTag($tag)
+public function removeTag(Tag $tag):self
 {
     $index = array_seach($tag, $this->tags);
 
@@ -145,5 +150,25 @@ public function removeTag($tag)
         array_splice($this->tags, $index,1);
     }
     return $this;
+}
+
+/**
+ * Get the value of category
+ */ 
+public function getCategory():Category
+{
+return $this->category;
+}
+
+/**
+ * Set the value of category
+ *
+ * @return  self
+ */ 
+public function setCategory(Category $category):self
+{
+$this->category = $category;
+
+return $this;
 }
 }

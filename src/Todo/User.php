@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
-namespace App\todo;
+namespace App\Todo;
+use App\Todo\Task;
 
 class User
 {
@@ -9,14 +10,16 @@ class User
     private $lastname;
     private $email;
     private $password;
+    private $tasks;
 
-    public function __construct(int $id,string $firstname,string $lastname,string $email, string $password)
+    public function __construct(int $id,string $firstname,string $lastname,string $email, string $password, array $tasks=[])
     {
         $this->id = $id;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->email = $email;
         $this->password = $password;
+        $this->tasks=$tasks;
     }
     /**
      * Get the value of id
@@ -105,4 +108,21 @@ class User
 
         return $this;
     }
+    public function addTasks(Task $task):self
+{
+    if (!in_array($task, $this->tasks)){
+    $this->tasks[]= $task;
+}
+
+    return $this;
+}
+public function removeTask(Task $task):self
+{
+    $index = array_seach($task, $this->tasks);
+
+    if($index !== false){
+        array_splice($this->tasks, $index,1);
+    }
+    return $this;
+}
 }

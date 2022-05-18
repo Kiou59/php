@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
 namespace App\todo;
+use App\Todo\Task;
 
 class Tags
 {
@@ -8,7 +9,7 @@ class Tags
     private $description;
     private $tasks;
 
-    public function __construct($id, $description, $tasks=[])
+    public function __construct(int $id, string $description, ?array $tasks=[])
     {
         $this->id =$id;
         $this->description=$description;
@@ -18,7 +19,7 @@ class Tags
     /**
      * Get the value of id
      */ 
-    public function getId()
+    public function getId():int
     {
         return $this->id;
     }
@@ -26,7 +27,7 @@ class Tags
     /**
      * Get the value of description
      */ 
-    public function getDescription()
+    public function getDescription():string
     {
         return $this->description;
     }
@@ -36,7 +37,7 @@ class Tags
      *
      * @return  self
      */ 
-    public function setDescription($description)
+    public function setDescription(string $description):self
     {
         $this->description = $description;
 
@@ -46,7 +47,7 @@ class Tags
         /**
          * Get the value of tasks
          */ 
-        public function getTasks()
+        public function getTasks():?array
         {
                 return $this->tasks;
         }
@@ -56,13 +57,13 @@ class Tags
          *
          * @return  self
          */ 
-        public function setTasks($tasks)
+        public function setTasks(?array $tasks):self
         {
                 $this->tasks = $tasks;
 
                 return $this;
         }
-public function addTasks($task)
+public function addTask(Task $task)
 {
     if (!in_array($task, $this->tasks)){
     $this->tasks[]= $task;
@@ -70,7 +71,7 @@ public function addTasks($task)
 
     return $this;
 }
-public function removeTag($task)
+public function removeTask(Task $task):self
 {
     $index = array_seach($task, $this->tasks);
 
